@@ -22,20 +22,10 @@
     <fragment
         android:id="@+id/discriptionCharacterFragment"
         android:name="com.example.retrofittest.DiscriptionCharacterFragment"
-        android:label="fragment_discription_character"
-        tools:layout="@layout/fragment_discription_character" >
+        tools:layout="@layout/fragment_discription_character">
         <argument
-            android:name="image"
-            app:argType="string" />
-        <argument
-            android:name="name"
-            app:argType="string" />
-        <argument
-            android:name="status"
-            app:argType="string" />
-        <argument android:name="gender"
-            app:argType="string" />
-        <argument android:name="species"
-            app:argType="string" />
+            android:name="character"
+            app:argType="com.example.retrofittest.models.Result"
+            app:nullable="false" />
     </fragment>
 </navigation>

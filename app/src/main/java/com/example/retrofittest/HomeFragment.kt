@@ -56,15 +56,10 @@ class HomeFragment : Fragment() {
             }
         })
     }
-/////
+
     private fun navigateToCharacterDescription(character: Result) {
-        val action = HomeFragmentDirections.actionHomeFragmentToDiscriptionCharacterFragment(
-            name = character.name,
-            image = character.image,
-            status = character.status,
-            gender = character.gender,
-            species = character.species,
-        )
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToDiscriptionCharacterFragment(character)
         findNavController().navigate(action)
     }
 }

@@ -28,12 +28,14 @@ class DiscriptionCharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.apply {
-            categoryImage.load(args.image)
-            categoryName.text = args.name
-            categoryStatus.text = args.status
-            categoryGender.text = args.gender
-            categorySpecies.text = args.species
+            val character = args.character
+            categoryImage.load(character.image)
+            categoryName.text = character.name
+            categoryStatus.text = character.status
+            categoryGender.text = character.gender
+            categorySpecies.text = character.species
         }
     }
 
