@@ -1,4 +1,4 @@
-package com.example.retrofittest.models
+package com.example.retrofittest.models.getallcharacters
 
 data class Info(
     val count: Int,

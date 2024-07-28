@@ -1,4 +1,4 @@
-package com.example.retrofittest.models
+package com.example.retrofittest.models.getallcharacters
 
 import android.os.Parcel
 import android.os.Parcelable
