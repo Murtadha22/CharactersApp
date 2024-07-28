@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(HomeFragment())
                     true
                 }
+                //jhdfdjsh
 
                 R.id.favorite -> {
                     Toast.makeText(this, "Favorite!", Toast.LENGTH_SHORT).show()
