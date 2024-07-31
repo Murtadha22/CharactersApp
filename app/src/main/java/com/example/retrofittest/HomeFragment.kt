@@ -1,28 +1,21 @@
 package com.example.retrofittest
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofittest.databinding.FragmentHomeBinding
-import com.example.retrofittest.models.getallcharacters.CharactersResponse
 import com.example.retrofittest.models.getallcharacters.Result
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private var allCharacters: List<Result> = listOf()
+    private val characterViewModel: CharacterViewModel by viewModels()
     private lateinit var adapter: CharacterAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,12 +29,16 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupSearchView()
-        getAllCharacters()
+
+        characterViewModel.characters.observe(viewLifecycleOwner, Observer {
+            adapter.updateList(it)
+        })
     }
 
     private fun setupRecyclerView() {
         binding.categoryRv.layoutManager = LinearLayoutManager(context)
-        adapter = CharacterAdapter(allCharacters, { character ->
+        adapter = CharacterAdapter(listOf(), { character ->
+            characterViewModel.selectCharacter(character)
             navigateToCharacterDescription(character)
         }, { character ->
             FavoriteManager.addFavorite(character)
@@ -56,46 +53,10 @@ class HomeFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterCharacters(newText)
+                characterViewModel.filterCharacters(newText ?: "")
                 return true
             }
         })
-    }
-
-    private fun getAllCharacters() {
-        Constants.retrofitService.getCharacter().enqueue(object : Callback<CharactersResponse> {
-            override fun onResponse(
-                call: Call<CharactersResponse>,
-                response: Response<CharactersResponse>
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.results?.let { results ->
-                        allCharacters = results
-                        adapter.updateList(allCharacters)
-                    }
-                } else {
-                    Log.i(Constants.TAG, "Response not successful")
-                }
-            }
-
-            override fun onFailure(call: Call<CharactersResponse>, t: Throwable) {
-                Log.i(Constants.TAG, "inFailure: ${t.message}")
-            }
-        })
-    }
-
-    private fun filterCharacters(query: String?) {
-        val filteredList = if (!query.isNullOrEmpty()) {
-            allCharacters.filter {
-                it.name.contains(query, true) ||
-                        it.status.contains(query, true) ||
-                        it.gender.contains(query, true) ||
-                        it.species.contains(query, true)
-            }
-        } else {
-            allCharacters
-        }
-        adapter.updateList(filteredList)
     }
 
     private fun navigateToCharacterDescription(character: Result) {

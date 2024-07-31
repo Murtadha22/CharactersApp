@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofittest.databinding.FragmentFavouriteBinding
 
 class FavoriteFragment : Fragment() {
     private lateinit var binding: FragmentFavouriteBinding
+    private val characterViewModel: CharacterViewModel by viewModels()
     private lateinit var adapter: CharacterAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,20 +26,19 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        loadFavorites()
+
+        characterViewModel.characters.observe(viewLifecycleOwner, Observer {
+            adapter.updateList(FavoriteManager.getFavorites())
+        })
     }
 
     private fun setupRecyclerView() {
         binding.categoryRv.layoutManager = LinearLayoutManager(context)
-        adapter = CharacterAdapter(FavoriteManager.getFavorites(), { character ->
-            // Handle item click if needed
+        adapter = CharacterAdapter(listOf(), { character ->
+            characterViewModel.selectCharacter(character)
         }, { character ->
-            // Handle favorite click if needed
+            FavoriteManager.addFavorite(character)
         })
         binding.categoryRv.adapter = adapter
-    }
-
-    private fun loadFavorites() {
-        adapter.updateList(FavoriteManager.getFavorites())
     }
 }
