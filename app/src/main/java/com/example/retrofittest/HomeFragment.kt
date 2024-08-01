@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         setupSearchView()
 
-        characterViewModel.characters.observe(viewLifecycleOwner, Observer {
+        characterViewModel.filteredCharacters.observe(viewLifecycleOwner, Observer {
             adapter.updateList(it)
             binding.loadingBar.visibility = View.GONE
         })
@@ -56,14 +56,11 @@ class HomeFragment : Fragment() {
                 return false
             }
 
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 characterViewModel.filterCharacters(newText ?: "",binding)
                 return true
             }
         })
-
-
     }
 
     private fun navigateToCharacterDescription(character: Result) {
