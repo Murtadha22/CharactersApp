@@ -1,11 +1,20 @@
 package com.example.retrofittest
 
 import android.os.Bundle
+<<<<<<< HEAD
+=======
 import android.util.Log
+>>>>>>> 35fb2d908091b31c3996525698ceaf0e9fb3c6b3
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.retrofittest.databinding.ActivityMainBinding
+<<<<<<< HEAD
+import com.example.retrofittest.fragments.FavoriteFragment
+import com.example.retrofittest.fragments.HomeFragment
+import com.example.retrofittest.fragments.SettingsFragment
+=======
+>>>>>>> 35fb2d908091b31c3996525698ceaf0e9fb3c6b3
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
