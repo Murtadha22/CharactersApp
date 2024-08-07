@@ -81,11 +81,11 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
                         gender = character.gender,
                         image = character.image,
                         type = character.type,
-                        created = "", // Placeholder, update as necessary
-                        episode = listOf(), // Placeholder, update as necessary
-                        location = null, // Placeholder, update as necessary
-                        origin = null, // Placeholder, update as necessary
-                        url = "" // Placeholder, update as necessary
+                        created = "",
+                        episode = listOf(),
+                        location = null,
+                        origin = null,
+                        url = ""
                     )
                 }
                 _characters.value = results
