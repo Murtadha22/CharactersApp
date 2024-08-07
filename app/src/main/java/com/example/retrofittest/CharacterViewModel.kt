@@ -61,6 +61,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
                     }
                 } else {
                     fetchFromDatabase()
+                    //
                 }
             } catch (e: Exception) {
                 fetchFromDatabase()

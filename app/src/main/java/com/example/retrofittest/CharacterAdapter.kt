@@ -8,7 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.retrofittest.databinding.CharacterCardBinding
+<<<<<<< HEAD
 import com.example.retrofittest.models.Result
+=======
+import com.example.retrofittest.models.getallcharacters.Result
+>>>>>>> 35fb2d908091b31c3996525698ceaf0e9fb3c6b3
 
 class CharacterAdapter(
     private var characters: List<Result>,
