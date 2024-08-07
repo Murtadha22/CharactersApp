@@ -16,7 +16,7 @@
         android:queryHint="Enter name of character"
         android:layout_gravity="center"/>
 
-<<<<<<< HEAD
+
     <ProgressBar
         android:id="@+id/loadingBar"
         android:layout_width="50dp"
@@ -24,8 +24,7 @@
         android:layout_gravity="center"
         tools:visibility="gone" />
 
-=======
->>>>>>> 35fb2d908091b31c3996525698ceaf0e9fb3c6b3
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_rv"
         android:layout_width="match_parent"

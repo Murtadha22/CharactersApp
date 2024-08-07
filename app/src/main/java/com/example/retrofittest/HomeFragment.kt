@@ -15,6 +15,7 @@ import com.example.retrofittest.models.getallcharacters.Result
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val characterViewModel: CharacterViewModel by viewModels()
+
     private lateinit var adapter: CharacterAdapter
 
     override fun onCreateView(
@@ -30,10 +31,12 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         setupSearchView()
 
-        characterViewModel.characters.observe(viewLifecycleOwner, Observer {
+        characterViewModel.filteredCharacters.observe(viewLifecycleOwner, Observer {
             adapter.updateList(it)
+            binding.loadingBar.visibility = View.GONE
         })
     }
+
 
     private fun setupRecyclerView() {
         binding.categoryRv.layoutManager = LinearLayoutManager(context)
@@ -48,12 +51,13 @@ class HomeFragment : Fragment() {
 
     private fun setupSearchView() {
         binding.searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                characterViewModel.filterCharacters(newText ?: "")
+                characterViewModel.filterCharacters(newText ?: "",binding)
                 return true
             }
         })
