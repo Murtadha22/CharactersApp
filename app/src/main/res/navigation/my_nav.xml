@@ -24,8 +24,8 @@
         android:name="com.example.retrofittest.fragments.DiscriptionCharacterFragment"
         tools:layout="@layout/fragment_discription_character">
         <argument
-            android:name="character"
-            app:argType="com.example.retrofittest.models..Result"
+            android:name="characters"
+            app:argType="com.example.retrofittest.models.Result"
             app:nullable="false" />
     </fragment>
     <fragment

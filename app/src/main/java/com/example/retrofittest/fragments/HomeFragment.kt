@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                characterViewModel.filterCharacters(newText ?: "",binding)
+                characterViewModel.filterCharacters(newText ?: "")
                 return true
             }
         })

@@ -1,12 +1,16 @@
 package com.example.retrofittest
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.retrofittest.data.Character
 import com.example.retrofittest.data.CharacterDatabase
 import com.example.retrofittest.data.network.Constants
 import com.example.retrofittest.data.repo.CharacterRepository
-import com.example.retrofittest.databinding.FragmentHomeBinding
+import com.example.retrofittest.models.Location
+import com.example.retrofittest.models.Origin
 import com.example.retrofittest.models.Result
 import kotlinx.coroutines.launch
 
@@ -45,7 +49,6 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
                     _characters.value = results
                     _filteredCharacters.value = results
                     _uiState.value = UIState.Success(results)
-
                     // Save characters to Room database
                     results.forEach { character ->
                         val roomCharacter = Character(
@@ -57,12 +60,13 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
                             image = character.image,
                             type = character.type
                         )
-//                        repository.addCharacter(roomCharacter)
+                        repository.addCharacter(roomCharacter)
                     }
                 } else {
                     fetchFromDatabase()
                 }
             } catch (e: Exception) {
+                e.message
                 fetchFromDatabase()
             }
         }
@@ -80,11 +84,11 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
                         gender = character.gender,
                         image = character.image,
                         type = character.type,
-                        created = "", // Placeholder, update as necessary
-                        episode = listOf(), // Placeholder, update as necessary
-                        location = null, // Placeholder, update as necessary
-                        origin = null, // Placeholder, update as necessary
-                        url = "" // Placeholder, update as necessary
+                        created = "",
+                        episode = listOf(),
+                        location = Location(name = "unknown", url = ""),
+                        origin = Origin(name = "unknown", url = ""),
+                        url = ""
                     )
                 }
                 _characters.value = results
@@ -100,7 +104,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
         _selectedCharacter.value = character
     }
 
-    fun filterCharacters(query: String, binding: FragmentHomeBinding) {
+    fun filterCharacters(query: String) {
         _uiState.value = UIState.Loading
         val filteredList = _characters.value?.filter {
             it.name.contains(query, true) ||

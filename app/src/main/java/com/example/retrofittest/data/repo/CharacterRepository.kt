@@ -9,7 +9,7 @@ class CharacterRepository(private val characterDao: CharacterDao) {
 
     val readAllData: LiveData<List<Character>> = characterDao.getAllCharacters()
 
-//    suspend fun addCharacter(character: Character){
-//        characterDao.addCharacter(character)
-//    }
+     fun addCharacter(character: Character){
+        characterDao.addCharacter(character)
+    }
 }

@@ -11,8 +11,8 @@ import androidx.room.Query
 @Entity
 interface CharacterDao {
 
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    suspend fun addCharacter(character: Character)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+     fun addCharacter(character: Character)
 
     @Query("SELECT * FROM  character_table ORDER BY id ASC")
      fun getAllCharacters(): LiveData<List<Character>>
