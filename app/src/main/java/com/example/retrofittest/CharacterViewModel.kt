@@ -70,7 +70,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
                 fetchFromDatabase()
             }
         }
-    }
+    }///just test
 
     private fun fetchFromDatabase() {
         readAllData.observeForever {
