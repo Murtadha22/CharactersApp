@@ -90,7 +90,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
                         origin = Origin(name = "unknown", url = ""),
                         url = ""
                     )
-                }
+                }//
                 _characters.value = results
                 _filteredCharacters.value = results
                 _uiState.value = UIState.Success(results)
